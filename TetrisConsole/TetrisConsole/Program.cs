@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tetris
+namespace TetrisConsole
 {
     class Program
     {
@@ -9,19 +9,13 @@ namespace Tetris
             Console.SetWindowSize(40, 30); //размер окна
             Console.SetBufferSize(40, 30); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
-            int x1 = 2;
-            int y1 = 3;
-            char c1 = '*';
-
-            Draw(x1, y1, c1);
+            Point p1 = new Point();
+            p1.x = 2;
+            p1.y = 3;
+            p1.c = '*';
+            p1.Draw();
 
             Console.ReadLine();
-        }
-
-        static void Draw(int x, int y, char c)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(c);
         }
     }
 }
