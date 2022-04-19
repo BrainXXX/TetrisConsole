@@ -12,8 +12,11 @@ namespace TetrisConsole
             Square s = new Square(2, 5, '*');
             s.Draw();
 
-            //Point p1 = new Point(2, 3, '*');
-            //p1.Draw();
+            Stick st = new Stick(8, 7, '*');
+            st.Draw();
+
+            Point p1 = new Point(2, 3, '*');
+            p1.Draw();
 
             Console.ReadLine();
         }
