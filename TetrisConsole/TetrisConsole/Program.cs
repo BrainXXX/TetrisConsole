@@ -9,14 +9,14 @@ namespace TetrisConsole
             Console.SetWindowSize(40, 30); //размер окна
             Console.SetBufferSize(40, 30); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
-            Square s = new Square(2, 5, '*');
-            s.Draw();
+            Figure[] f = new Figure[2];
+            f[0] = new Square(2, 5, '*');
+            f[1] = new Stick(6, 6, '*');
 
-            Stick st = new Stick(8, 7, '*');
-            st.Draw();
-
-            Point p1 = new Point(2, 3, '*');
-            p1.Draw();
+            foreach (Figure fig in f)
+            {
+                fig.Draw();
+            }
 
             Console.ReadLine();
         }
