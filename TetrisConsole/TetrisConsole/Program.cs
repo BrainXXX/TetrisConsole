@@ -6,35 +6,33 @@ namespace TetrisConsole
     {
         static void Main(string[] args)
         {
+#pragma warning disable CA1416 // Проверка совместимости платформы
             Console.SetWindowSize(40, 30); //размер окна
             Console.SetBufferSize(40, 30); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+#pragma warning restore CA1416 // Проверка совместимости платформы
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
-            Figure s = generator.GetNewFigure();
+            Figure s = null;
             
-            s.Draw();
+            while(true)
+            {
+                FigureFall(s, generator);
+                //s.Draw();
+            }
 
-            Thread.Sleep(1000);
-            s.Hide();
-            s.Rotate();
-            s.Draw();
+            static void FigureFall(Figure fig, FigureGenerator generator)
+            {
+                fig = generator.GetNewFigure();
+                fig.Draw();
 
-            Thread.Sleep(1000);
-            s.Hide();
-            s.Move(Direction.DOWN);
-            s.Draw();
-
-            Thread.Sleep(1000);
-            s.Hide();
-            s.Move(Direction.RIGHT);
-            s.Draw();
-
-            Thread.Sleep(1000);
-            s.Hide();
-            s.Rotate();
-            s.Draw();
-
-            Console.ReadLine();
+                for (int i = 0; i < 15; i++)
+                {
+                    fig.Hide();
+                    fig.Move(Direction.DOWN);
+                    fig.Draw();
+                    Thread.Sleep(200);
+                }
+            }
         }
     }
 }
