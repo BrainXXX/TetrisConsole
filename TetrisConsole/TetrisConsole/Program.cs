@@ -9,7 +9,8 @@ namespace TetrisConsole
             Console.SetWindowSize(40, 30); //размер окна
             Console.SetBufferSize(40, 30); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
-            Figure s = new Stick(20, 5, '*');
+            FigureGenerator generator = new FigureGenerator(20, 0, '*');
+            Figure s = generator.GetNewFigure();
             
             s.Draw();
 
