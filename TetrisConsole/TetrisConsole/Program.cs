@@ -12,26 +12,31 @@ namespace TetrisConsole
 #pragma warning restore CA1416 // Проверка совместимости платформы
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
-            Figure s;
+            Figure currentFigure = generator.GetNewFigure();
             
             while(true)
             {
-                FigureFall(out s, generator);
-                s.Draw();
-            }
-
-            static void FigureFall(out Figure fig, FigureGenerator generator)
-            {
-                fig = generator.GetNewFigure();
-                fig.Draw();
-
-                for (int i = 0; i < 15; i++)
+                if(Console.KeyAvailable)
                 {
-                    fig.Hide();
-                    fig.Move(Direction.DOWN);
-                    fig.Draw();
-                    Thread.Sleep(200);
+                    var key = Console.ReadKey();
+                    HandleKey(currentFigure, key);
                 }
+            }
+        }
+
+        private static void HandleKey(Figure currentFigure, ConsoleKeyInfo key)
+        {
+            switch (key.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    currentFigure.Move(Direction.LEFT);
+                    break;
+                case ConsoleKey.RightArrow:
+                    currentFigure.Move(Direction.RIGHT);
+                    break;
+                case ConsoleKey.DownArrow:
+                    currentFigure.Move(Direction.DOWN);
+                    break;
             }
         }
     }
