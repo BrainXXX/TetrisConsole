@@ -7,8 +7,8 @@ namespace TetrisConsole
         static void Main(string[] args)
         {
 #pragma warning disable CA1416 // Проверка совместимости платформы
-            Console.SetWindowSize(40, 30); //размер окна
-            Console.SetBufferSize(40, 30); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+            Console.SetWindowSize(Field.WIDTH, Field.HEIGHT); //размер окна
+            Console.SetBufferSize(Field.WIDTH, Field.HEIGHT); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 #pragma warning restore CA1416 // Проверка совместимости платформы
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
@@ -36,6 +36,9 @@ namespace TetrisConsole
                     break;
                 case ConsoleKey.DownArrow:
                     currentFigure.TryMove(Direction.DOWN);
+                    break;
+                case ConsoleKey.Spacebar:
+                    currentFigure.TryRotate();
                     break;
             }
         }
