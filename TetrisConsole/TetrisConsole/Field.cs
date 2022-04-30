@@ -9,6 +9,9 @@ namespace TetrisConsole
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
     static class Field
     {
+        private static int _width = 40;
+        private static int _height = 30;
+
         public static int Width
         {
             get
@@ -19,8 +22,8 @@ namespace TetrisConsole
             set
             {
                 _width = value;
-                Console.SetWindowSize(_width, _height); //размер окна
-                Console.SetBufferSize(_width, _height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+                Console.SetWindowSize(value, Height); //размер окна
+                Console.SetBufferSize(value, Height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
             }
         }
 
@@ -34,12 +37,9 @@ namespace TetrisConsole
             set
             {
                 _height = value;
-                Console.SetWindowSize(_width, _height); //размер окна
-                Console.SetBufferSize(_width, _height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+                Console.SetWindowSize(Width, value); //размер окна
+                Console.SetBufferSize(Width, value); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
             }
         }
-
-        private static int _width = 40;
-        private static int _height = 30;
     }
 }
