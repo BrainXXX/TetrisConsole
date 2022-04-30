@@ -4,14 +4,15 @@ namespace TetrisConsole
 {
     class Program
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
         static void Main(string[] args)
         {
-#pragma warning disable CA1416 // Проверка совместимости платформы
-            Console.SetWindowSize(Field.WIDTH, Field.HEIGHT); //размер окна
-            Console.SetBufferSize(Field.WIDTH, Field.HEIGHT); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
-#pragma warning restore CA1416 // Проверка совместимости платформы
+            Console.SetWindowSize(Field.Width, Field.HEIGHT); //размер окна
+            Console.SetBufferSize(Field.Width, Field.HEIGHT); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
-            FigureGenerator generator = new FigureGenerator(20, 0, '*');
+            Field.Width = 20;
+
+            FigureGenerator generator = new FigureGenerator(Field.Width / 2 - 1, 0, '*');
             Figure currentFigure = generator.GetNewFigure();
             
             while(true)
