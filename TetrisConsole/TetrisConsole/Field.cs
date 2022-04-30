@@ -19,12 +19,27 @@ namespace TetrisConsole
             set
             {
                 _width = value;
-                Console.SetWindowSize(_width, Field.HEIGHT); //размер окна
-                Console.SetBufferSize(_width, Field.HEIGHT); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+                Console.SetWindowSize(_width, _height); //размер окна
+                Console.SetBufferSize(_width, _height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+            }
+        }
+
+        public static int Height
+        {
+            get
+            {
+                return _height;
+            }
+
+            set
+            {
+                _height = value;
+                Console.SetWindowSize(_width, _height); //размер окна
+                Console.SetBufferSize(_width, _height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
             }
         }
 
         private static int _width = 40;
-        public const int HEIGHT = 30;
+        private static int _height = 30;
     }
 }

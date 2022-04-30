@@ -10,7 +10,7 @@ namespace TetrisConsole
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public char C
+        public char C { get; set; }
 
         public void Draw()
         {

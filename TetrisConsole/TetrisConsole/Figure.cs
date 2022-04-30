@@ -49,7 +49,7 @@ namespace TetrisConsole
         {
             foreach(var p in pList)
             {
-                if(p.X < 0 || p.Y < 0 || p.X >= Field.Width || p.Y >= Field.HEIGHT - 1)
+                if(p.X < 0 || p.Y < 0 || p.X >= Field.Width || p.Y >= Field.Height - 1)
                     return false;
             }
 
