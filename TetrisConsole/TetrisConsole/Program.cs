@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Timers;
 
 namespace TetrisConsole
 {
     class Program
     {
-        private static FigureGenerator? generator;
+        const int TIMER_INTERVAL = 500;
+        static System.Timers.Timer? timer;
+        static private Object _lockObject = new object();
+
+        static Figure? currentFigure;
+        static FigureGenerator? generator;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
         static void Main(string[] args)
@@ -13,15 +19,18 @@ namespace TetrisConsole
             Console.SetBufferSize(Field.Width, Field.Height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
             generator = new FigureGenerator(Field.Width / 2 - 1, 0, Drawer.DEFAULT_SYMBOL);
-            Figure currentFigure = generator.GetNewFigure();
+            currentFigure = generator.GetNewFigure();
+            SetTimer();
             
             while (true)
             {
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
+                    Monitor.Enter(_lockObject);
                     var result = HandleKey(currentFigure, key.Key);
                     ProcessResult(result, ref currentFigure);
+                    Monitor.Exit(_lockObject);
                 }
             }
         }
@@ -53,6 +62,22 @@ namespace TetrisConsole
                     return f.TryRotate();
             }
             return Result.SUCCESS;
+        }
+
+        private static void SetTimer()
+        {
+            timer = new System.Timers.Timer(TIMER_INTERVAL);
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
+        private static void OnTimedEvent(object? sender, ElapsedEventArgs e)
+        {
+            Monitor.Enter(_lockObject);
+            var result = currentFigure.TryMove(Direction.DOWN);
+            ProcessResult(result, ref currentFigure);
+            Monitor.Exit(_lockObject);
         }
     }
 }
