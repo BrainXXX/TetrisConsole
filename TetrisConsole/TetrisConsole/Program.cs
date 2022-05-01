@@ -12,12 +12,12 @@ namespace TetrisConsole
             Console.SetWindowSize(Field.Width, Field.Height); //размер окна
             Console.SetBufferSize(Field.Width, Field.Height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
-            generator = new FigureGenerator(Field.Width / 2 - 1, 0, '*');
+            generator = new FigureGenerator(Field.Width / 2 - 1, 0, Drawer.DEFAULT_SYMBOL);
             Figure currentFigure = generator.GetNewFigure();
             
-            while(true)
+            while (true)
             {
-                if(Console.KeyAvailable)
+                if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
                     var result = HandleKey(currentFigure, key.Key);
@@ -31,6 +31,7 @@ namespace TetrisConsole
             if (result == Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
             {
                 Field.AddFigure(currentFigure);
+                Field.TryDeleteLines();
                 currentFigure = generator.GetNewFigure();
                 return true;
             }
