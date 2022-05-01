@@ -52,7 +52,7 @@ namespace TetrisConsole
         {
             foreach(var p in newPoints)
             {
-                if (p.Y >= Field.Height)
+                if (p.Y >= Field.Height - 1)
                     return Result.DOWN_BORDER_STRIKE;
 
                 if (p.X >= Field.Width || p.X < 0 || p.Y < 0)

@@ -4,7 +4,7 @@ namespace TetrisConsole
 {
     class Program
     {
-        static FigureGenerator generator;
+        private static FigureGenerator? generator;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
         static void Main(string[] args)
