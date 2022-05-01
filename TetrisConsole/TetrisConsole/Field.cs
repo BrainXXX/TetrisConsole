@@ -88,7 +88,7 @@ namespace TetrisConsole
 
         private static void Redraw()
         {
-            for (int j = 0; j < Height - 1; j++)
+            for (int j = 0; j < Height; j++)
             {
                 for (int i = 0; i < Width; i++)
                 {
