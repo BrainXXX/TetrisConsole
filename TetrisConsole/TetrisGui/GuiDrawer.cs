@@ -34,7 +34,9 @@ namespace TetrisGui
 
         public void WriteGameOver()
         {
-            throw new NotImplementedException();
+            GraphicsWindow.BrushColor = "DarkBlue";
+            GraphicsWindow.FontSize = 20;
+            GraphicsWindow.DrawText((Field.Width / 2 - 4) * SIZE, (Field.Height / 2) * SIZE, "G A M E   O V E R");
         }
     }
 }
