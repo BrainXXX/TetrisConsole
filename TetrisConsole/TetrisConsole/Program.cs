@@ -18,6 +18,8 @@ namespace TetrisConsole
             Console.SetWindowSize(Field.Width, Field.Height + 1); //размер окна
             Console.SetBufferSize(Field.Width, Field.Height + 1); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
+            Test();
+
             generator = new FigureGenerator(Field.Width / 2 - 1, 0, Drawer.DEFAULT_SYMBOL);
             currentFigure = generator.GetNewFigure();
             SetTimer();
@@ -33,6 +35,11 @@ namespace TetrisConsole
                     Monitor.Exit(_lockObject);
                 }
             }
+        }
+
+        private static void Test()
+        {
+            DrawerProvider.Drawer.DrawPoint(5, 6);
         }
 
         private static bool ProcessResult(Result result, ref Figure currentFigure)
