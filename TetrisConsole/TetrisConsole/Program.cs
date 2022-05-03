@@ -15,8 +15,8 @@ namespace TetrisConsole
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Field.Width, Field.Height); //размер окна
-            Console.SetBufferSize(Field.Width, Field.Height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+            Console.SetWindowSize(Field.Width, Field.Height + 1); //размер окна
+            Console.SetBufferSize(Field.Width, Field.Height + 1); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
 
             generator = new FigureGenerator(Field.Width / 2 - 1, 0, Drawer.DEFAULT_SYMBOL);
             currentFigure = generator.GetNewFigure();
