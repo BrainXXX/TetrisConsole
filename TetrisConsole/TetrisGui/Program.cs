@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Threading;
 using System.Timers;
 
-namespace TetrisConsole
+namespace TetrisGui
 {
     class Program
     {
         const int TIMER_INTERVAL = 500;
-        static System.Timers.Timer? timer;
+        static System.Timers.Timer timer;
         static private Object _lockObject = new object();
 
-        static Figure? currentFigure;
-        static FigureGenerator? generator;
+        static Figure currentFigure;
+        static FigureGenerator generator;
 
         static void Main(string[] args)
         {
@@ -80,7 +81,7 @@ namespace TetrisConsole
             timer.Enabled = true;
         }
 
-        private static void OnTimedEvent(object? sender, ElapsedEventArgs e)
+        private static void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             Monitor.Enter(_lockObject);
             var result = currentFigure.TryMove(Direction.DOWN);
