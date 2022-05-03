@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Threading;
 using System.Timers;
+using Microsoft.SmallBasic.Library;
 
-namespace TetrisConsole
+namespace TetrisGui
 {
     class Program
     {
         const int TIMER_INTERVAL = 500;
-        static System.Timers.Timer? timer;
+        static System.Timers.Timer timer;
         static private Object _lockObject = new object();
 
-        static Figure? currentFigure;
-        static FigureGenerator? generator;
+        static Figure currentFigure;
+        static FigureGenerator generator;
 
         static void Main(string[] args)
         {
@@ -18,18 +20,36 @@ namespace TetrisConsole
 
             generator = new FigureGenerator(Field.Width / 2 - 1, 0);
             currentFigure = generator.GetNewFigure();
-            SetTimer();
-            
-            while (true)
+
+            GraphicsWindow.KeyDown += GraphicsWindow_KeyDown;
+
+            //SetTimer();
+
+            //while (true)
+            //{
+            //    if (Console.KeyAvailable)
+            //    {
+            //        var key = Console.ReadKey();
+            //        Monitor.Enter(_lockObject);
+            //        var result = HandleKey(currentFigure, key.Key);
+            //        ProcessResult(result, ref currentFigure);
+            //        Monitor.Exit(_lockObject);
+            //    }
+            //}
+
+            GraphicsWindow.BrushColor = "Red";
+            GraphicsWindow.FontSize = 20;
+            GraphicsWindow.DrawText(10, 10, "Game Over");
+        }
+
+        private static void GraphicsWindow_KeyDown()
+        {
+            String lastKey = (String)GraphicsWindow.LastKey;
+            switch(lastKey)
             {
-                if (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey();
-                    Monitor.Enter(_lockObject);
-                    var result = HandleKey(currentFigure, key.Key);
-                    ProcessResult(result, ref currentFigure);
-                    Monitor.Exit(_lockObject);
-                }
+                case "Left":
+                    currentFigure.TryMove(Direction.LEFT);
+                    break;
             }
         }
 
@@ -80,7 +100,7 @@ namespace TetrisConsole
             timer.Enabled = true;
         }
 
-        private static void OnTimedEvent(object? sender, ElapsedEventArgs e)
+        private static void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             Monitor.Enter(_lockObject);
             var result = currentFigure.TryMove(Direction.DOWN);
