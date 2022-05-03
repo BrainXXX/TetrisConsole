@@ -12,15 +12,11 @@ namespace TetrisConsole
         static Figure? currentFigure;
         static FigureGenerator? generator;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Проверка совместимости платформы", Justification = "<Ожидание>")]
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Field.Width, Field.Height + 1); //размер окна
-            Console.SetBufferSize(Field.Width, Field.Height + 1); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
+            DrawerProvider.Drawer.InitField();
 
-            Test();
-
-            generator = new FigureGenerator(Field.Width / 2 - 1, 0, Drawer.DEFAULT_SYMBOL);
+            generator = new FigureGenerator(Field.Width / 2 - 1, 0);
             currentFigure = generator.GetNewFigure();
             SetTimer();
             
@@ -37,11 +33,6 @@ namespace TetrisConsole
             }
         }
 
-        private static void Test()
-        {
-            DrawerProvider.Drawer.DrawPoint(5, 6);
-        }
-
         private static bool ProcessResult(Result result, ref Figure currentFigure)
         {
             if (result == Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
@@ -51,7 +42,7 @@ namespace TetrisConsole
 
                 if (currentFigure.IsOnTop())
                 {
-                    WriteGameOver();
+                    DrawerProvider.Drawer.WriteGameOver();
                     timer.Elapsed -= OnTimedEvent;
                     return true;
                 }
@@ -87,12 +78,6 @@ namespace TetrisConsole
             timer.Elapsed += OnTimedEvent;
             timer.AutoReset = true;
             timer.Enabled = true;
-        }
-
-        private static void WriteGameOver()
-        {
-            Console.SetCursorPosition(Field.Width / 2 - 8, Field.Height / 2);
-            Console.WriteLine("G A M E   O V E R");
         }
 
         private static void OnTimedEvent(object? sender, ElapsedEventArgs e)

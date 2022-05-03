@@ -14,9 +14,7 @@ namespace TetrisConsole
 
         public void Draw()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(C);
-            Console.SetCursorPosition(0, 0);
+            DrawerProvider.Drawer.DrawPoint(X, Y);
         }
 
         public Point(Point p)
@@ -54,8 +52,7 @@ namespace TetrisConsole
 
         internal void Hide()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(" ");
+            DrawerProvider.Drawer.HidePoint(X, Y);
         }
 
         public Point() { }

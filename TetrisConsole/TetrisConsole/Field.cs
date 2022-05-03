@@ -18,13 +18,6 @@ namespace TetrisConsole
             {
                 return _width;
             }
-
-            set
-            {
-                _width = value;
-                Console.SetWindowSize(value, Height); //размер окна
-                Console.SetBufferSize(value, Height); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
-            }
         }
 
         public static int Height
@@ -32,13 +25,6 @@ namespace TetrisConsole
             get
             {
                 return _height;
-            }
-
-            set
-            {
-                _height = value;
-                Console.SetWindowSize(Width, value); //размер окна
-                Console.SetBufferSize(Width, value); //уменьшаем зону буфера текста, чтобы скрыть полосы прокрутки
             }
         }
 
@@ -93,9 +79,9 @@ namespace TetrisConsole
                 for (int i = 0; i < Width; i++)
                 {
                     if (_heap[j][i])
-                        Drawer.DrawPoint(i, j);
+                        DrawerProvider.Drawer.DrawPoint(i, j);
                     else
-                        Drawer.HidePoint(i, j);
+                        DrawerProvider.Drawer.HidePoint(i, j);
                 }
             }
         }
